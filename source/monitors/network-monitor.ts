@@ -1,9 +1,10 @@
 import { Monitor } from './entities/monitor'
 import { networkStats, networkInterfaceDefault } from 'systeminformation'
+import { ConfigDefault } from '../config.default';
 
 export class NetworkMonitor extends Monitor {
-    constructor() {
-        super('network');
+    constructor(config: ConfigDefault) {
+        super(config,'network');
     }
 
     async collect(): Promise<void> {

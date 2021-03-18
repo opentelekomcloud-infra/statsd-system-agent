@@ -15,8 +15,20 @@ afterAll(() => {
     server.close()
 })
 
+const testConfig = {
+    'statisticBlackList':[],
+    'monitorNames':['cpu-monitor','memory-monitor','disk-monitor','network-monitor'],
+    'collectStatisticsInterval':10000,
+    'sendStatisticsInterval':10000,
+    'statsdConfig':{
+        'prefix':'csm',
+        'env':'production_eu-de',
+        'host':'localhost',
+        'debug':false
+    }
+}
 test('statistic push', () => {
-    const testStat = new Statistic ('cpu.user','2.96')
+    const testStat = new Statistic (testConfig,'cpu.user','2.96')
     const resp = testStat.send()
     expect(resp).toEqual(true)
 })

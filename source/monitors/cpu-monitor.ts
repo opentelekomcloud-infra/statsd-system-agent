@@ -1,5 +1,6 @@
 import { Monitor } from './entities/monitor';
 import * as os from 'os';
+import { ConfigDefault } from '../config.default';
 
 interface CpuTimes {
     idle: number
@@ -10,10 +11,10 @@ interface CpuTimes {
 }
 
 export class CpuMonitor extends Monitor {
-    public currentCpuTimes: CpuTimes | undefined;
+    public currentCpuTimes: CpuTimes | undefined
 
-    constructor() {
-        super('cpu');
+    constructor(config: ConfigDefault) {
+        super(config, 'cpu')
     }
 
     collect(): void {

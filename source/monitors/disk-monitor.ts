@@ -3,11 +3,12 @@ import { blockDevices } from 'systeminformation'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { raw } from 'disk-stat'
+import { ConfigDefault } from '../config.default';
 
 //only on *nix system
 export class DiskMonitor extends Monitor {
-    constructor() {
-        super('disk');
+    constructor(config: ConfigDefault) {
+        super(config,'disk');
     }
 
     async collect(): Promise<void> {

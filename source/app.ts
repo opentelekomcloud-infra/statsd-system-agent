@@ -15,7 +15,7 @@ function loadMonitors() {
         switch (monitorName) {
         case 'cpu-monitor':
             try {
-                const monitor = new CpuMonitor()
+                const monitor = new CpuMonitor(config)
                 monitors.push(monitor);
             } catch (err) {
                 console.error(`Could not load monitor ${monitorName}`, err.stack || err);
@@ -23,7 +23,7 @@ function loadMonitors() {
             break
         case 'memory-monitor':
             try {
-                const monitor = new MemoryMonitor()
+                const monitor = new MemoryMonitor(config)
                 monitors.push(monitor);
             } catch (err) {
                 console.error(`Could not load monitor ${monitorName}`, err.stack || err);
@@ -31,7 +31,7 @@ function loadMonitors() {
             break
         case 'network-monitor':
             try {
-                const monitor = new NetworkMonitor()
+                const monitor = new NetworkMonitor(config)
                 monitors.push(monitor);
             } catch (err) {
                 console.error(`Could not load monitor ${monitorName}`, err.stack || err);
@@ -39,7 +39,7 @@ function loadMonitors() {
             break
         case 'disk-monitor':
             try {
-                const monitor = new DiskMonitor()
+                const monitor = new DiskMonitor(config)
                 monitors.push(monitor);
             } catch (err) {
                 console.error(`Could not load monitor ${monitorName}`, err.stack || err);

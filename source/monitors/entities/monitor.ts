@@ -2,29 +2,33 @@ import { loadCustomConfiguration } from '../../config';
 import { Statistic } from './stat'
 import debug from 'debug'
 import { isEmpty } from 'underscore'
+import { ConfigDefault } from '../../config.default';
 
 const config = loadCustomConfiguration()
 
 const debugMon = debug('statsd-agent:statistic')
-let statisticBlackList: Set<string>
 
-if (!isEmpty(config.statisticBlackList)) {
-    statisticBlackList = new Set(config.statisticBlackList.map(statisticName => statisticName.toLowerCase()))
-}
+
+
 
 export class Monitor {
-    public statistics: any[];
+    public statistics: Statistic[];
     public name: string;
 
-    constructor(name: string) {
+    constructor(config: ConfigDefault, name: string) {
         this.name = name
         this.statistics = []
     }
 
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    setStatistics(statisticsPairs: any[]) {
-        debugMon('Setting statistics (%s)...', this.name, statisticsPairs)
 
+    setStatistics(statisticsPairs: any[]): void {
+        debugMon('Setting statistics (%s)...', this.name, statisticsPairs)
+        let statisticBlackList: Set<string>
+        if (!isEmpty(config.statisticBlackList)) {
+            statisticBlackList = new Set(config.statisticBlackList.map(statisticName => statisticName.toLowerCase()))
+        }
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         if (statisticBlackList) {
             statisticsPairs =
                 statisticsPairs
@@ -34,11 +38,10 @@ export class Monitor {
         this.statistics =
             statisticsPairs
                 .map(statisticsPair =>
-                    new Statistic(`${this.name}.${statisticsPair[0]}`, statisticsPair[1]))
+                    new Statistic(config,`${this.name}.${statisticsPair[0]}`, statisticsPair[1]))
     }
 
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    sendStatistics() {
+    sendStatistics(): void {
         debug('Sending statistics...')
 
         const statistics = this.statistics
@@ -50,8 +53,7 @@ export class Monitor {
         }
     }
 
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    clearStatistics() {
+    clearStatistics(): void {
         this.statistics = []
     }
 }

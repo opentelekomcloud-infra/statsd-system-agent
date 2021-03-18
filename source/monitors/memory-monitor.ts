@@ -1,9 +1,10 @@
 import { Monitor } from './entities/monitor'
 import { mem } from 'systeminformation'
+import { ConfigDefault } from '../config.default';
 
 export class MemoryMonitor extends Monitor {
-    constructor() {
-        super('memory');
+    constructor(config: ConfigDefault) {
+        super(config,'memory');
     }
 
     async collect(): Promise<void> {
