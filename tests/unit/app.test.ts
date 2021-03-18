@@ -34,7 +34,7 @@ test('statistic push', () => {
 })
 
 test('cpu-monitor', () => {
-    const monitor = new CpuMonitor()
+    const monitor = new CpuMonitor(testConfig)
     expect(monitor.name).toEqual('cpu')
     // set currentCpuTimes
     monitor.collect()
@@ -50,7 +50,7 @@ test('cpu-monitor', () => {
 })
 
 test('memory-monitor', async () => {
-    const monitor = new MemoryMonitor()
+    const monitor = new MemoryMonitor(testConfig)
     expect(monitor.name).toEqual('memory')
     // set statistics
     await monitor.collect()
@@ -60,7 +60,7 @@ test('memory-monitor', async () => {
 })
 
 test('network-monitor',async () => {
-    const monitor = new NetworkMonitor()
+    const monitor = new NetworkMonitor(testConfig)
     expect(monitor.name).toEqual('network')
     // set statistics
     await monitor.collect()
@@ -70,7 +70,7 @@ test('network-monitor',async () => {
 })
 
 test('disk-monitor',async () => {
-    const monitor = new DiskMonitor()
+    const monitor = new DiskMonitor(testConfig)
     expect(monitor.name).toEqual('disk')
     // set statistics
     await monitor.collect()
