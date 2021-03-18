@@ -2,10 +2,7 @@ import { wrap } from 'underscore'
 import { hostname } from 'os'
 import { StatsD } from 'hot-shots'
 import StatsdClient from 'hot-shots'
-import { loadCustomConfiguration } from '../config'
 import { ConfigDefault } from '../config.default';
-
-const statsdConfig = loadCustomConfiguration().statsdConfig
 
 export function client(config: ConfigDefault): StatsD{
     const client = new StatsdClient({
@@ -17,7 +14,7 @@ export function client(config: ConfigDefault): StatsD{
         globalTags: {}
     })
 
-    if (statsdConfig.debug) {
+    if (config.statsdConfig.debug) {
         StatsdClient.prototype.sendMessage =
             wrap(StatsdClient.prototype.sendMessage,
                 function (originalSendMessage: unknown, message: unknown, callback: unknown) {

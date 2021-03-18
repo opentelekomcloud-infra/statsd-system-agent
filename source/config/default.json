@@ -1,0 +1,12 @@
+{
+  "statisticBlackList":[],
+  "monitorNames":["cpu-monitor","memory-monitor","network-monitor"],
+  "collectStatisticsInterval":10000,
+  "sendStatisticsInterval":10000,
+  "statsdConfig":{
+    "prefix":"csm",
+    "env":"production_eu-de",
+    "host":"localhost",
+    "debug":false
+  }
+}

@@ -1,3 +1,5 @@
+import {readFileSync} from "fs-extra";
+
 export interface ConfigDefault {
     statisticBlackList: string[];
     monitorNames: string[]
@@ -13,17 +15,8 @@ interface StatsdConfig {
     debug: boolean
 }
 
-export function createDefaultConfig(): ConfigDefault {
-    return {
-        statisticBlackList: [],
-        monitorNames: ['cpu-monitor', 'memory-monitor', 'disk-monitor', 'network-monitor'],
-        collectStatisticsInterval: 10*1000,
-        sendStatisticsInterval: 10*1000,
-        statsdConfig: {
-            prefix: 'csm',
-            env: 'production_eu-de',
-            host: 'localhost',
-            debug: false
-        }
-    }
+export function createDefaultConfig(): string {
+    let config = readFileSync(__dirname +'/config/default.json', 'utf8')
+    config = JSON.parse(config)
+    return config
 }

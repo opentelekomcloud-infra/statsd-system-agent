@@ -8,83 +8,79 @@ const config = loadCustomConfiguration()
 const monitors: any[] = [];
 
 function loadMonitors() {
-    const monitorNames = config.monitorNames;
-
-    for (let i = 0; i < monitorNames.length; i++) {
-        const monitorName = monitorNames[i];
-        switch (monitorName) {
+    const monitorNames = config.monitorNames
+    if (monitors.length > 0) {
+        return
+    }
+    monitorNames.forEach(name => {
+        switch (name) {
         case 'cpu-monitor':
             try {
                 const monitor = new CpuMonitor(config)
-                monitors.push(monitor);
+                monitors.push(monitor)
             } catch (err) {
-                console.error(`Could not load monitor ${monitorName}`, err.stack || err);
+                console.error(`Could not load monitor ${name}`, err.stack || err)
             }
             break
         case 'memory-monitor':
             try {
                 const monitor = new MemoryMonitor(config)
-                monitors.push(monitor);
+                monitors.push(monitor)
             } catch (err) {
-                console.error(`Could not load monitor ${monitorName}`, err.stack || err);
+                console.error(`Could not load monitor ${name}`, err.stack || err)
             }
             break
         case 'network-monitor':
             try {
                 const monitor = new NetworkMonitor(config)
-                monitors.push(monitor);
+                monitors.push(monitor)
             } catch (err) {
-                console.error(`Could not load monitor ${monitorName}`, err.stack || err);
+                console.error(`Could not load monitor ${name}`, err.stack || err)
             }
             break
         case 'disk-monitor':
             try {
                 const monitor = new DiskMonitor(config)
-                monitors.push(monitor);
+                monitors.push(monitor)
             } catch (err) {
-                console.error(`Could not load monitor ${monitorName}`, err.stack || err);
+                console.error(`Could not load monitor ${name}`, err.stack || err)
             }
             break
         default:
-            console.log(`Monitor ${monitorName} not implemented`);
+            console.log(`Monitor ${name} not implemented`)
             break
         }
-    }
+    })
 
-    console.log(`${monitors.length} monitors loaded.`);
+    console.log(`${monitors.length} monitors loaded.`)
 }
 
 async function collectStatistics() {
-    for (let i = 0; i < monitors.length; i++) {
-        const monitor = monitors[i];
-
-        console.log(`Collecting statistics (${monitor.name} monitor)...`);
+    for (const monitor of monitors) {
+        console.log(`Collecting statistics (${monitor.name} monitor)...`)
         await monitor.collect();
-        console.log(`Collected statistics (${monitor.name} monitor)...`);
+        console.log(`Collected statistics (${monitor.name} monitor)...`)
     }
 }
 
 function sendStatistics() {
-    for (let i = 0; i < monitors.length; i++) {
-        const monitor = monitors[i];
-
-        console.log(`Sending statistics (${monitor.name} monitor)...`);
-        monitor.sendStatistics();
-        console.log(`Sent statistics (${monitor.name} monitor).`);
-
-        monitor.clearStatistics();
+    for (const monitor of monitors) {
+        console.log(`Sending statistics (${monitor.name} monitor)...`)
+        monitor.sendStatistics()
+        console.log(`Sent statistics (${monitor.name} monitor).`)
+        monitor.clearStatistics()
     }
 }
 
 export function start(): void {
-    loadMonitors();
+    loadMonitors()
 
-    console.log('Start collecting statistics...');
-    collectStatistics();
-    setInterval(collectStatistics, config.collectStatisticsInterval);
+    console.log('Start collecting statistics...')
+    collectStatistics()
+    setInterval(collectStatistics, config.collectStatisticsInterval)
 
-    console.log('Start sending statistics...');
-    setInterval(sendStatistics, config.sendStatisticsInterval);
+    console.log('Start sending statistics...')
+    setInterval(sendStatistics, config.sendStatisticsInterval)
 }
 
-start();
+start()
