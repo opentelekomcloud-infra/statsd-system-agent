@@ -5,11 +5,7 @@ import { isEmpty } from 'underscore'
 import { ConfigDefault } from '../../config.default';
 
 const config = loadCustomConfiguration()
-
 const debugMon = debug('statsd-agent:statistic')
-
-
-
 
 export class Monitor {
     public statistics: Statistic[];
@@ -46,11 +42,9 @@ export class Monitor {
 
         const statistics = this.statistics
 
-        for (let i = 0; i < statistics.length; i++) {
-            const statistic = statistics[i]
-
-            statistic.send()
-        }
+        statistics.forEach(stat => {
+            stat.send()
+        })
     }
 
     clearStatistics(): void {
