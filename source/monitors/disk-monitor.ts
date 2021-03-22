@@ -27,19 +27,25 @@ export class DiskMonitor extends Monitor {
         const statisticsList = []
         for (const disk of disksList) {
             statisticsList.push(
-                ['readsCompleted', disksInfo[disk].readsCompleted],
-                ['readsMerged', disksInfo[disk].readsMerged],
-                ['sectorsRead', disksInfo[disk].sectorsRead],
-                ['msReading', disksInfo[disk].msReading],
-                ['writesCompleted', disksInfo[disk].writesCompleted],
-                ['writesMerged', disksInfo[disk].writesMerged],
-                ['sectorsWritten', disksInfo[disk].sectorsWritten],
-                ['msWriting', disksInfo[disk].msWriting],
-                ['iosPending', disksInfo[disk].iosPending],
-                ['msIo', disksInfo[disk].msIo],
-                ['msWeightedIo', disksInfo[disk].msWeightedIo])
-            for (const stat of statisticsList)
-                diskStatisticsList.push([`${disk}_${stat[0]}`, stat[1]])
+                Object.entries({
+                    'readsCompleted': disksInfo[disk].readsCompleted,
+                    'readsMerged': disksInfo[disk].readsMerged,
+                    'sectorsRead': disksInfo[disk].sectorsRead,
+                    'msReading': disksInfo[disk].msReading,
+                    'writesCompleted': disksInfo[disk].writesCompleted,
+                    'writesMerged': disksInfo[disk].writesMerged,
+                    'sectorsWritten': disksInfo[disk].sectorsWritten,
+                    'msWriting': disksInfo[disk].msWriting,
+                    'iosPending': disksInfo[disk].iosPending,
+                    'msIo': disksInfo[disk].msIo,
+                    'msWeightedIo': disksInfo[disk].msWeightedIo
+                })
+            )
+            diskStatisticsList.push(
+                statisticsList.map(([statName, statValue]) =>
+                    `${disk}_${statName}, ${statValue}`
+                )
+            )
         }
         this.setStatistics (diskStatisticsList)
     }

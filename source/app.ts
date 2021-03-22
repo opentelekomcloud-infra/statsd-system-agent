@@ -51,23 +51,18 @@ function loadMonitors() {
             break
         }
     })
-
     console.log(`${monitors.length} monitors loaded.`)
 }
 
 async function collectStatistics() {
     for (const monitor of monitors) {
-        console.log(`Collecting statistics (${monitor.name} monitor)...`)
-        await monitor.collect();
-        console.log(`Collected statistics (${monitor.name} monitor)...`)
+        await monitor.collect()
     }
 }
 
 function sendStatistics() {
     for (const monitor of monitors) {
-        console.log(`Sending statistics (${monitor.name} monitor)...`)
         monitor.sendStatistics()
-        console.log(`Sent statistics (${monitor.name} monitor).`)
         monitor.clearStatistics()
     }
 }

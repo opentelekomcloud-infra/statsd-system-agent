@@ -17,13 +17,13 @@ export class Statistic {
     }
 
     send(): boolean {
+        console.log(`Sending statistics ${this.statsdName}...`)
         debugSt('Sending statistic %s = %d', this.statsdName, this.value)
         try {
             this.client.gauge(this.statsdName, this.value)
         } catch (err) {
             return false
         }
-
         return true
     }
 }

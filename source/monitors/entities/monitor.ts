@@ -39,7 +39,6 @@ export class Monitor {
 
     sendStatistics(): void {
         debug('Sending statistics...')
-
         const statistics = this.statistics
 
         statistics.forEach(stat => {

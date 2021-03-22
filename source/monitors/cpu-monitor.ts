@@ -23,24 +23,25 @@ export class CpuMonitor extends Monitor {
 
     collect(): void {
         const intervalCpuTimes = this.getIntervalCpuTimes();
-
         if (intervalCpuTimes == null)
             return;
 
         const totalIntervalCpuTime =
-            + intervalCpuTimes.user
+            +intervalCpuTimes.user
             + intervalCpuTimes.nice
             + intervalCpuTimes.sys
             + intervalCpuTimes.idle
             + intervalCpuTimes.irq
 
-        this.setStatistics([
-            ['user', round(intervalCpuTimes.user, totalIntervalCpuTime)],
-            ['nice', round(intervalCpuTimes.nice, totalIntervalCpuTime)],
-            ['sys', round(intervalCpuTimes.sys, totalIntervalCpuTime)],
-            ['idle', round(intervalCpuTimes.idle, totalIntervalCpuTime)],
-            ['irq', round(intervalCpuTimes.irq, totalIntervalCpuTime)]
-        ]);
+        this.setStatistics(
+            Object.entries({
+                'user': round(intervalCpuTimes.user, totalIntervalCpuTime),
+                'nice': round(intervalCpuTimes.nice, totalIntervalCpuTime),
+                'sys': round(intervalCpuTimes.sys, totalIntervalCpuTime),
+                'idle': round(intervalCpuTimes.idle, totalIntervalCpuTime),
+                'irq': round(intervalCpuTimes.irq, totalIntervalCpuTime)
+            })
+        )
     }
 
     getIntervalCpuTimes(): CpuTimes | null {
