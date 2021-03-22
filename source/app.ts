@@ -63,6 +63,7 @@ async function collectStatistics() {
 function sendStatistics() {
     for (const monitor of monitors) {
         monitor.sendStatistics()
+        console.debug(`Sending statistic for ${monitor}`)
         monitor.clearStatistics()
     }
 }
@@ -71,7 +72,7 @@ export function start(): void {
     loadMonitors()
 
     console.log('Start collecting statistics...')
-    collectStatistics()
+    collectStatistics().then(r => console.log(`${r}`))
     setInterval(collectStatistics, config.collectStatisticsInterval)
 
     console.log('Start sending statistics...')
