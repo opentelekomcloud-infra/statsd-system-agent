@@ -1,8 +1,8 @@
 import { existsSync, writeFileSync, readFileSync } from 'fs-extra'
 import { ConfigDefault, createDefaultConfig } from './config.default'
 
-let customConfig: any
 export function loadCustomConfiguration(path='/tmp'): ConfigDefault {
+    let customConfig
     if (existsSync(path + '/config.custom')) {
         console.log('Loading configuration...')
 
@@ -13,7 +13,7 @@ export function loadCustomConfiguration(path='/tmp'): ConfigDefault {
         const config = createDefaultConfig()
         writeFileSync(path +'/config.custom', JSON.stringify(config) , 'utf-8')
 
-        loadCustomConfiguration(path)
+        return loadCustomConfiguration(path)
     }
     return customConfig
 }
