@@ -1,4 +1,4 @@
-import {readFileSync} from "fs-extra";
+import { readFileSync } from 'fs-extra';
 
 export interface ConfigDefault {
     statisticBlackList: string[];
