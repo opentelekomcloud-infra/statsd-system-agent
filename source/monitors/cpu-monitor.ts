@@ -27,7 +27,7 @@ export class CpuMonitor extends Monitor {
             return;
 
         const totalIntervalCpuTime =
-            +intervalCpuTimes.user
+            + intervalCpuTimes.user
             + intervalCpuTimes.nice
             + intervalCpuTimes.sys
             + intervalCpuTimes.idle
