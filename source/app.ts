@@ -63,7 +63,7 @@ async function collectStatistics() {
 function sendStatistics() {
     for (const monitor of monitors) {
         monitor.sendStatistics()
-        console.debug(`Sending statistic for ${monitor}`)
+        console.debug('Sending statistic...')
         monitor.clearStatistics()
     }
 }

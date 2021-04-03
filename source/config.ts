@@ -1,7 +1,9 @@
-import { existsSync, writeFileSync, readFileSync } from 'fs-extra'
 import { ConfigDefault, createDefaultConfig } from './config.default'
+import pkg from 'fs-extra';
 
-export function loadCustomConfiguration(path='/tmp'): ConfigDefault {
+const { existsSync, writeFileSync, readFileSync } = pkg;
+
+export function loadCustomConfiguration(path='C:\\Users\\ansideln'): ConfigDefault {
     let customConfig
     if (existsSync(path + '/config.custom')) {
         console.log('Loading configuration...')

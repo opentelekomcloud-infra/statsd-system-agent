@@ -1,14 +1,15 @@
-import { loadCustomConfiguration } from '../../config';
+import { loadCustomConfiguration } from '../../config'
 import { Statistic } from './stat'
 import debug from 'debug'
-import { isEmpty } from 'underscore'
-import { ConfigDefault } from '../../config.default';
+import pkg from 'underscore'
+import { ConfigDefault } from '../../config.default'
 
+const { isEmpty } = pkg
 const config = loadCustomConfiguration()
 const debugMon = debug('statsd-agent:statistic')
 
 export class Monitor {
-    public statistics: Statistic[];
+    public statistics: Statistic[]
     public name: string;
 
     constructor(config: ConfigDefault, name: string) {

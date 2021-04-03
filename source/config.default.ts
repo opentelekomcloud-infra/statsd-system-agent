@@ -1,7 +1,9 @@
-import { readFileSync } from 'fs-extra';
+import pkg from 'fs-extra'
+
+const { readFileSync } = pkg
 
 export interface ConfigDefault {
-    statisticBlackList: string[];
+    statisticBlackList: string[]
     monitorNames: string[]
     collectStatisticsInterval: number
     sendStatisticsInterval: number
