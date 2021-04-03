@@ -3,7 +3,7 @@ import pkg from 'fs-extra';
 
 const { existsSync, writeFileSync, readFileSync } = pkg;
 
-export function loadCustomConfiguration(path='C:\\Users\\ansideln'): ConfigDefault {
+export function loadCustomConfiguration(path='/tmp'): ConfigDefault {
     let customConfig
     if (existsSync(path + '/config.custom')) {
         console.log('Loading configuration...')
