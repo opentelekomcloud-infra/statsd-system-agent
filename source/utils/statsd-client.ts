@@ -1,8 +1,10 @@
-import { wrap } from 'underscore'
+import pkg from 'underscore';
 import { hostname } from 'os'
 import { StatsD } from 'hot-shots'
 import StatsdClient from 'hot-shots'
 import { ConfigDefault } from '../config.default';
+
+const { wrap } = pkg;
 
 export function client(config: ConfigDefault): StatsD{
     const client = new StatsdClient({

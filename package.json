@@ -14,8 +14,9 @@
     "jest": "jest --config .jestrc.json",
     "unit": "yarn jest ./tests/unit && yarn cov-rename unit",
     "test": "yarn clean && yarn unit",
-    "build": "tsc -p ./source",
-    "clean": "rm -rf ./dist ./coverage"
+    "build": "tsc -p ./source && cp -R ./source/config/* ./dist/config",
+    "clean": "rm -rf ./dist ./coverage",
+    "start": "node --experimental-specifier-resolution=node dist/app.js"
   },
   "keywords": [],
   "author": "Anton Sidelnikov <a.sidelnikov@t-systems.com>",
